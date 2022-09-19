@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -150,4 +151,11 @@ public class User implements UserDetails, Serializable {
 		return true;
 	}
 
+	public boolean hasRole(String roleName) {
+		Optional<Role> role = roles.stream().filter(r -> r.getAuthority().equals(roleName)).findAny();
+		if (role.isPresent()) {
+			return true;
+		}
+		return false;
+	}
 }
